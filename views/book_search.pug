@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  
+  if search_results.length
+    ul
+      - search_results.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+      each book in search_results
+        li
+          a(href=book.url) #{book.title}
+          |  (#{book.author.name})
+
+  else
+    li No books matched your search term.

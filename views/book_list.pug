@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+    - book_list.sort(function(a, b) {let textA = a.title.toUpperCase(); let textB = b.title.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+    each book in book_list
+      li
+        a(href=book.url) #{book.title}
+        |  (#{book.author.name})
+
+    else
+      li There are no books.
+  
+  hr
+  p Search for books
+
+  form(method='GET' action='./search')
+    div.form-group
+      label(for='query') Title Search:
+      input#titlesearch.form-control(type='text', placeholder='Type title here' name='titlesearch' required='true')
+      br
+      button.btn.btn-primary(type='submit') Search
